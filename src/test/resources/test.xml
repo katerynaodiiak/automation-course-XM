@@ -4,6 +4,7 @@
 <suite name="General suite">
     <test name="Simple tests">
         <classes>
+            <class name="apitests.ApiTest"/>
             <class name="uitests.HomePageTests"/>
             <class name="uitests.HomePageSelenideTests"/>
         </classes>
