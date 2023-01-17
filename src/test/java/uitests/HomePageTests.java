@@ -1,8 +1,6 @@
 package uitests;
 
 import org.testng.annotations.AfterMethod;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.AfterTest;
 import org.testng.annotations.Test;
 import ui.HomePage;
 import ui.HomePageWithPF;
@@ -16,7 +14,6 @@ import static org.testng.Assert.assertTrue;
 
 public class HomePageTests {
 
-    //@AfterTest
     @AfterMethod
     public static void afterMethod() {
         WebDriverHandler.closeBrowser();
@@ -36,7 +33,6 @@ public class HomePageTests {
         assertTrue(homePage.isOpenAnDemoAccountButtonDisplayed(), "No Open an demo account button!");
         assertTrue(homePage.isMainMenuDisplayed(),"No Main Menu!");
         assertEquals(homePage.getMenuNames(),menuNamesList);
-        //homePage.browserClose();
     }
 
 
@@ -55,6 +51,5 @@ public class HomePageTests {
         assertTrue(homePageWithPF.isOpenAnDemoAccountButtonDisplayed(), "No Open an demo account button!");
         assertTrue(homePageWithPF.isMainMenuDisplayed(),"No Main Menu!");
         assertEquals(homePageWithPF.getMenuNames(),menuNamesList);
-        homePageWithPF.browserClose();
     }
 }
