@@ -11,6 +11,7 @@ public class HomePage {
     private static final String URL = "https://www.xm.com/";
 
     private static final String cookiesAlertPopUp = "#cookieModal";
+    //probably you can remove most of the classes from this xpath :)
     private static final String cookiesAlertPopUpAcceptAllButton = "//*[@class='col-sm-5']/button[@class = 'btn btn-block btn-red btn-solid js-acceptDefaultCookie gtm-acceptDefaultCookieFirstVisit']";
 
     private static final String logo = "#navigation-collapse .logo";
@@ -28,6 +29,12 @@ public class HomePage {
         WebDriverHandler.closeBrowser();
     }
 
+    //this is not a mistake, just one thing to think about: when you create a method for checking(!) if element is visible or not,
+    //such method should be able to return both true and false (because you can base other actions on the fact that element is displayed or not:
+    //e.g., if menu is not displayed - click on button that opens this menu); but, as we first wait for element to be visible,
+    //we can only get true or exception...
+    // so if your method returns information about current state of element's property (visibility, text, etc.),
+    //there's no point in waiting for this property to have specific value (but you can wait for element to exist!)
     public boolean isAlertPopUpDisplayed() {
         WebDriverHandler.getWait().until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(cookiesAlertPopUp)));
         return WebDriverHandler.getDriver().findElement(By.cssSelector(cookiesAlertPopUp)).isDisplayed();

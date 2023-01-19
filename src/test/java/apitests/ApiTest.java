@@ -1,5 +1,6 @@
 package apitests;
 
+import api.StarWarsFilmsResponse;
 import io.restassured.RestAssured;
 import io.restassured.common.mapper.TypeRef;
 import org.testng.Assert;
@@ -14,8 +15,7 @@ import java.util.Map;
 
 import static org.apache.http.HttpStatus.SC_OK;
 import static org.hamcrest.Matchers.is;
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
+import static org.testng.Assert.*;
 
 public class ApiTest {
 
@@ -30,8 +30,7 @@ public class ApiTest {
 
     @Test
     public void test(){
-        Map<String,Object> responseBody;
-        responseBody = RestAssured.given()
+        StarWarsFilmsResponse responseBody = RestAssured.given()
                 .baseUri(BASE_URL)
                 .basePath(STAR_WARS_FILMS_ENDPOINT)
                 .pathParam("id", ID)
@@ -41,11 +40,10 @@ public class ApiTest {
                 .then()
                 //.log().all()
                 .statusCode(SC_OK)
+                .body("title", is("A New Hope")) //to try RestAssured validation :)
                 .extract()
-                .as(new TypeRef<>() {});
-        assertEquals(responseBody.get("title"),"A New Hope");
-        List<String> planetsList = (ArrayList<String>)responseBody.get("planets");
-        assertTrue(planetsList.size()!=0);
+                .as(StarWarsFilmsResponse.class); //as you have this class in your suite, probably you wanted to do something like that :)
+        assertFalse(responseBody.getPlanets().isEmpty());
     }
 
 }
